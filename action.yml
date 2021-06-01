@@ -1,0 +1,21 @@
+name: 'Pollapo install'
+description: 'Pollapo install'
+inputs:
+  out-dir:
+    description: 'Out directory'
+    required: false
+    default: .pollapo
+  token:
+    description: 'Github OAuth token'
+    required: true
+  config:
+    description: 'Pollapo config'
+    required: false
+    default: pollapo.yml
+  working-directory:
+    description: 'Working directory'
+    required: false
+    default: .
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

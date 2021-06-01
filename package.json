@@ -1,0 +1,19 @@
+{
+  "name": "pollapo-install",
+  "version": "0.0.1",
+  "description": "Github workflow for pollapo install",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/riiid/pollapo-install.git"
+  },
+  "author": "Riiid",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/riiid/pollapo-install/issues"
+  },
+  "homepage": "https://github.com/riiid/pollapo-install#readme"
+}
