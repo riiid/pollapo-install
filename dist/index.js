@@ -58234,10 +58234,14 @@ __nccwpck_require__.r(__webpack_exports__);
 /* harmony import */ var crypto__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__nccwpck_require__.n(crypto__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(5747);
 /* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__nccwpck_require__.n(fs__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var stream__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(2413);
-/* harmony import */ var stream__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__nccwpck_require__.n(stream__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(1669);
-/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nccwpck_require__.n(util__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var os__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(2087);
+/* harmony import */ var os__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__nccwpck_require__.n(os__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(5622);
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nccwpck_require__.n(path__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var stream__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(2413);
+/* harmony import */ var stream__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__nccwpck_require__.n(stream__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(1669);
+/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__nccwpck_require__.n(util__WEBPACK_IMPORTED_MODULE_8__);
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -58281,13 +58285,23 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
+
+
 var DENO_INSTALL_SCRIPT_URL = 'https://deno.land/x/install/install.sh';
 var POLLAPO_SCRIPT_URL = 'https://raw.githubusercontent.com/riiid/pbkit/v0.0.8/cli/pollapo/entrypoint.ts';
-var CACHE_PATH = '~/.config/pollapo/cache';
+var CACHE_PATH = path__WEBPACK_IMPORTED_MODULE_6___default().join(os__WEBPACK_IMPORTED_MODULE_5___default().homedir(), '.config', 'pollapo', 'cache');
 var CACHE_KEY_PREFIX = 'pollapo-install';
-var CACHE_VERSION = '0';
+var CACHE_VERSION = '1';
+var outDir = _actions_core__WEBPACK_IMPORTED_MODULE_1__.getInput('out-dir');
+var token = _actions_core__WEBPACK_IMPORTED_MODULE_1__.getInput('token');
+var config = _actions_core__WEBPACK_IMPORTED_MODULE_1__.getInput('config');
+var workingDirectory = _actions_core__WEBPACK_IMPORTED_MODULE_1__.getInput('working-directory');
+var outDirPath = path__WEBPACK_IMPORTED_MODULE_6___default().resolve(path__WEBPACK_IMPORTED_MODULE_6___default().join(workingDirectory, outDir));
+var configPath = path__WEBPACK_IMPORTED_MODULE_6___default().resolve(path__WEBPACK_IMPORTED_MODULE_6___default().join(workingDirectory, config));
+var denoPath = path__WEBPACK_IMPORTED_MODULE_6___default().resolve(os__WEBPACK_IMPORTED_MODULE_5___default().homedir(), '.deno', 'bin', 'deno');
 function main() {
     return __awaiter(this, void 0, void 0, function () {
+        var cacheKey;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, setupDeno()];
@@ -58295,14 +58309,16 @@ function main() {
                     _a.sent();
                     return [4 /*yield*/, restoreCache()];
                 case 2:
-                    _a.sent();
+                    cacheKey = _a.sent();
                     return [4 /*yield*/, pollapoInstall()];
                 case 3:
                     _a.sent();
+                    if (!!cacheKey) return [3 /*break*/, 5];
                     return [4 /*yield*/, saveCache()];
                 case 4:
                     _a.sent();
-                    return [2 /*return*/];
+                    _a.label = 5;
+                case 5: return [2 /*return*/];
             }
         });
     });
@@ -58311,7 +58327,7 @@ function setupDeno() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2___default().exec("curl -fsSL " + DENO_INSTALL_SCRIPT_URL + " | sh")];
+                case 0: return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec("/bin/bash -c \"curl -fsSL " + DENO_INSTALL_SCRIPT_URL + " | sh\"")];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -58330,37 +58346,29 @@ function restoreCache() {
                 case 1:
                     cacheKey = _a.sent();
                     restoreKeys = getRestoreCacheKeys();
-                    return [4 /*yield*/, _actions_cache__WEBPACK_IMPORTED_MODULE_0___default().restoreCache(cachePaths, cacheKey, restoreKeys)];
-                case 2:
-                    _a.sent();
-                    return [2 /*return*/];
+                    return [4 /*yield*/, _actions_cache__WEBPACK_IMPORTED_MODULE_0__.restoreCache(cachePaths, cacheKey, restoreKeys)];
+                case 2: return [2 /*return*/, _a.sent()];
             }
         });
     });
 }
 function pollapoInstall() {
     return __awaiter(this, void 0, void 0, function () {
-        var src, outDir, token, config;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    src = POLLAPO_SCRIPT_URL;
-                    outDir = _actions_core__WEBPACK_IMPORTED_MODULE_1___default().getInput('out-dir');
-                    token = _actions_core__WEBPACK_IMPORTED_MODULE_1___default().getInput('token');
-                    config = _actions_core__WEBPACK_IMPORTED_MODULE_1___default().getInput('config');
-                    return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2___default().exec('deno', [
-                            'run',
-                            '-A',
-                            '--unstable',
-                            src,
-                            'install',
-                            '--out-dir',
-                            outDir,
-                            '--token',
-                            token,
-                            '--config',
-                            config,
-                        ])];
+                case 0: return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec(denoPath, [
+                        'run',
+                        '-A',
+                        '--unstable',
+                        POLLAPO_SCRIPT_URL,
+                        'install',
+                        '--out-dir',
+                        outDirPath,
+                        '--token',
+                        token,
+                        '--config',
+                        configPath,
+                    ])];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -58370,7 +58378,7 @@ function pollapoInstall() {
 }
 function saveCache() {
     return __awaiter(this, void 0, void 0, function () {
-        var cachePaths, cacheKey;
+        var cachePaths, cacheKey, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -58378,10 +58386,23 @@ function saveCache() {
                     return [4 /*yield*/, getPrimaryCacheKey()];
                 case 1:
                     cacheKey = _a.sent();
-                    return [4 /*yield*/, _actions_cache__WEBPACK_IMPORTED_MODULE_0___default().saveCache(cachePaths, cacheKey)];
+                    _a.label = 2;
                 case 2:
+                    _a.trys.push([2, 4, , 5]);
+                    return [4 /*yield*/, _actions_cache__WEBPACK_IMPORTED_MODULE_0__.saveCache(cachePaths, cacheKey)];
+                case 3:
                     _a.sent();
-                    return [2 /*return*/];
+                    return [3 /*break*/, 5];
+                case 4:
+                    e_1 = _a.sent();
+                    if (e_1.name === _actions_cache__WEBPACK_IMPORTED_MODULE_0__.ReserveCacheError.name) {
+                        _actions_core__WEBPACK_IMPORTED_MODULE_1__.info("Pollapo install cache entry `" + cacheKey + "` has been already created by another workflow.");
+                    }
+                    else {
+                        throw e_1;
+                    }
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     });
@@ -58393,7 +58414,7 @@ function hashFile(path) {
             switch (_a.label) {
                 case 0:
                     result = crypto__WEBPACK_IMPORTED_MODULE_3___default().createHash('sha256');
-                    return [4 /*yield*/, util__WEBPACK_IMPORTED_MODULE_6___default().promisify((stream__WEBPACK_IMPORTED_MODULE_5___default().pipeline))(fs__WEBPACK_IMPORTED_MODULE_4___default().createReadStream(path), result)];
+                    return [4 /*yield*/, util__WEBPACK_IMPORTED_MODULE_8___default().promisify((stream__WEBPACK_IMPORTED_MODULE_7___default().pipeline))(fs__WEBPACK_IMPORTED_MODULE_4___default().createReadStream(path), result)];
                 case 1:
                     _a.sent();
                     result.end();
@@ -58407,7 +58428,7 @@ function getPrimaryCacheKey() {
         var configHash;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, hashFile(_actions_core__WEBPACK_IMPORTED_MODULE_1___default().getInput('config'))];
+                case 0: return [4 /*yield*/, hashFile(configPath)];
                 case 1:
                     configHash = _a.sent();
                     return [2 /*return*/, [CACHE_KEY_PREFIX, CACHE_VERSION, configHash].join('-')];
@@ -58419,7 +58440,7 @@ function getRestoreCacheKeys() {
     return [[CACHE_KEY_PREFIX, CACHE_VERSION, ''].join('-'), [CACHE_KEY_PREFIX, ''].join('-')];
 }
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var e_1;
+    var e_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -58429,8 +58450,8 @@ function getRestoreCacheKeys() {
                 _a.sent();
                 return [3 /*break*/, 3];
             case 2:
-                e_1 = _a.sent();
-                _actions_core__WEBPACK_IMPORTED_MODULE_1___default().setFailed(e_1.message);
+                e_2 = _a.sent();
+                _actions_core__WEBPACK_IMPORTED_MODULE_1__.setFailed(e_2.message);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
