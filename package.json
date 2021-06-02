@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/riiid/pollapo-install/issues"
   },
-  "homepage": "https://github.com/riiid/pollapo-install#readme"
+  "homepage": "https://github.com/riiid/pollapo-install#readme",
+  "dependencies": {
+    "typescript": "^4.3.2"
+  }
 }
