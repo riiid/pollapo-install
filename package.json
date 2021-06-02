@@ -4,6 +4,8 @@
   "description": "Github workflow for pollapo install",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "yarn lint --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +19,9 @@
   },
   "homepage": "https://github.com/riiid/pollapo-install#readme",
   "dependencies": {
+    "@riiid/eslint-config": "^1.0.14",
+    "eslint": "^7.27.0",
+    "prettier": "^2.3.0",
     "typescript": "^4.3.2"
   }
 }

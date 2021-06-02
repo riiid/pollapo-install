@@ -1,0 +1,21 @@
+{
+  "root": true,
+  "extends": [
+    "@riiid/eslint-config",
+    "plugin:import/typescript"
+  ],
+  "settings": {
+    "import/external-module-folders": [
+      "node_modules",
+      "node_modules/@types",
+    ]
+  },
+  "globals": {
+    "__html__": true
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+}
