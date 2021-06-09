@@ -9,7 +9,7 @@ import stream from 'stream';
 import util from 'util';
 
 const DENO_INSTALL_SCRIPT_URL = 'https://deno.land/x/install/install.sh';
-const POLLAPO_SCRIPT_URL = 'https://raw.githubusercontent.com/riiid/pbkit/v0.0.8/cli/pollapo/entrypoint.ts';
+const POLLAPO_SCRIPT_URL = 'https://raw.githubusercontent.com/riiid/pbkit/v0.0.9/cli/pollapo/entrypoint.ts';
 
 const CACHE_PATH = path.join(os.homedir(), '.config', 'pollapo', 'cache');
 const CACHE_KEY_PREFIX = 'pollapo-install';

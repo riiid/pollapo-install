@@ -58288,7 +58288,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 var DENO_INSTALL_SCRIPT_URL = 'https://deno.land/x/install/install.sh';
-var POLLAPO_SCRIPT_URL = 'https://raw.githubusercontent.com/riiid/pbkit/v0.0.8/cli/pollapo/entrypoint.ts';
+var POLLAPO_SCRIPT_URL = 'https://raw.githubusercontent.com/riiid/pbkit/v0.0.9/cli/pollapo/entrypoint.ts';
 var CACHE_PATH = path__WEBPACK_IMPORTED_MODULE_6___default().join(os__WEBPACK_IMPORTED_MODULE_5___default().homedir(), '.config', 'pollapo', 'cache');
 var CACHE_KEY_PREFIX = 'pollapo-install';
 var CACHE_VERSION = '1';
