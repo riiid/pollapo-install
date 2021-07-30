@@ -58287,8 +58287,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-var DENO_INSTALL_SCRIPT_URL = 'https://deno.land/x/install/install.sh';
-var POLLAPO_SCRIPT_URL = 'https://raw.githubusercontent.com/riiid/pbkit/v0.0.9/cli/pollapo/entrypoint.ts';
+var POLLAPO_BINARY_URL = 'https://github.com/riiid/pbkit/releases/download/v0.0.12/pollapo-ubuntu';
 var CACHE_PATH = path__WEBPACK_IMPORTED_MODULE_6___default().join(os__WEBPACK_IMPORTED_MODULE_5___default().homedir(), '.config', 'pollapo', 'cache');
 var CACHE_KEY_PREFIX = 'pollapo-install';
 var CACHE_VERSION = '1';
@@ -58298,13 +58297,12 @@ var config = _actions_core__WEBPACK_IMPORTED_MODULE_1__.getInput('config');
 var workingDirectory = _actions_core__WEBPACK_IMPORTED_MODULE_1__.getInput('working-directory');
 var outDirPath = path__WEBPACK_IMPORTED_MODULE_6___default().resolve(path__WEBPACK_IMPORTED_MODULE_6___default().join(workingDirectory, outDir));
 var configPath = path__WEBPACK_IMPORTED_MODULE_6___default().resolve(path__WEBPACK_IMPORTED_MODULE_6___default().join(workingDirectory, config));
-var denoPath = path__WEBPACK_IMPORTED_MODULE_6___default().resolve(os__WEBPACK_IMPORTED_MODULE_5___default().homedir(), '.deno', 'bin', 'deno');
 function main() {
     return __awaiter(this, void 0, void 0, function () {
         var cacheKey;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, setupDeno()];
+                case 0: return [4 /*yield*/, setupPollapo()];
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, restoreCache()];
@@ -58323,12 +58321,15 @@ function main() {
         });
     });
 }
-function setupDeno() {
+function setupPollapo() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec("/bin/bash -c \"curl -fsSL " + DENO_INSTALL_SCRIPT_URL + " | sh\"")];
+                case 0: return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec("/bin/bash -c \"curl -fsSL " + POLLAPO_BINARY_URL + "\"")];
                 case 1:
+                    _a.sent();
+                    return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec('chmod +x ./pollapo-ubuntu')];
+                case 2:
                     _a.sent();
                     return [2 /*return*/];
             }
@@ -58356,19 +58357,7 @@ function pollapoInstall() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec(denoPath, [
-                        'run',
-                        '-A',
-                        '--unstable',
-                        POLLAPO_SCRIPT_URL,
-                        'install',
-                        '--out-dir',
-                        outDirPath,
-                        '--token',
-                        token,
-                        '--config',
-                        configPath,
-                    ])];
+                case 0: return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec("./pollapo-ubuntu", ["install", "--out-dir", outDirPath, "--token", token, "--config", configPath])];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
