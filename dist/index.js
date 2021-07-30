@@ -58325,10 +58325,10 @@ function setupPollapo() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec("/bin/bash -c \"curl -fsSL " + POLLAPO_BINARY_URL + "\"")];
+                case 0: return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec("/bin/bash -c \"curl -L " + POLLAPO_BINARY_URL + " --output pollapo-ubuntu\"")];
                 case 1:
                     _a.sent();
-                    return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec('chmod +x ./pollapo-ubuntu')];
+                    return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec('chmod +x pollapo-ubuntu')];
                 case 2:
                     _a.sent();
                     return [2 /*return*/];
