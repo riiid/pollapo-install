@@ -8,8 +8,7 @@ import path from 'path';
 import stream from 'stream';
 import util from 'util';
 
-const DENO_INSTALL_SCRIPT_URL = 'https://deno.land/x/install/install.sh';
-const POLLAPO_SCRIPT_URL = 'https://raw.githubusercontent.com/riiid/pbkit/v0.0.9/cli/pollapo/entrypoint.ts';
+const POLLAPO_BINARY_URL = 'https://github.com/riiid/pbkit/releases/download/v0.0.12/pollapo-ubuntu'
 
 const CACHE_PATH = path.join(os.homedir(), '.config', 'pollapo', 'cache');
 const CACHE_KEY_PREFIX = 'pollapo-install';
@@ -22,10 +21,9 @@ const workingDirectory = core.getInput('working-directory');
 
 const outDirPath = path.resolve(path.join(workingDirectory, outDir));
 const configPath = path.resolve(path.join(workingDirectory, config));
-const denoPath = path.resolve(os.homedir(), '.deno', 'bin', 'deno');
 
 async function main() {
-  await setupDeno();
+  await setupPollapo();
   const cacheKey = await restoreCache();
   await pollapoInstall();
   if (!cacheKey) {
@@ -33,8 +31,9 @@ async function main() {
   }
 }
 
-async function setupDeno() {
-  await exec.exec(`/bin/bash -c "curl -fsSL ${DENO_INSTALL_SCRIPT_URL} | sh"`);
+async function setupPollapo(): Promise<void> {
+  await exec.exec(`/bin/bash -c "curl -fsSL ${POLLAPO_BINARY_URL}"`)
+  await exec.exec('chmod +x ./pollapo-ubuntu')
 }
 
 async function restoreCache(): Promise<string | undefined> {
@@ -45,19 +44,7 @@ async function restoreCache(): Promise<string | undefined> {
 }
 
 async function pollapoInstall() {
-  await exec.exec(denoPath, [
-    'run',
-    '-A',
-    '--unstable',
-    POLLAPO_SCRIPT_URL,
-    'install',
-    '--out-dir',
-    outDirPath,
-    '--token',
-    token,
-    '--config',
-    configPath,
-  ]);
+  await exec.exec("./pollapo-ubuntu", ["install", "--out-dir", outDirPath, "--token", token, "--config", configPath]);
 }
 
 async function saveCache() {
