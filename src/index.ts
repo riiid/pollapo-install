@@ -32,8 +32,8 @@ async function main() {
 }
 
 async function setupPollapo(): Promise<void> {
-  await exec.exec(`/bin/bash -c "curl -fsSL ${POLLAPO_BINARY_URL}"`)
-  await exec.exec('chmod +x ./pollapo-ubuntu')
+  await exec.exec(`/bin/bash -c "curl -L ${POLLAPO_BINARY_URL} --output pollapo-ubuntu"`)
+  await exec.exec('chmod +x pollapo-ubuntu')
 }
 
 async function restoreCache(): Promise<string | undefined> {
