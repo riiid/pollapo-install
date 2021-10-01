@@ -58287,7 +58287,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-var POLLAPO_BINARY_URL = 'http://nexus.dev.riiid.cloud/repository/raw-pbkit/pollapo-ubuntu-v0.0.14';
+var POLLAPO_BINARY_URL = 'http://nexus.dev.riiid.cloud/repository/raw-pbkit/pollapo-ubuntu-v0.0.17';
 var CACHE_PATH = path__WEBPACK_IMPORTED_MODULE_6___default().join(os__WEBPACK_IMPORTED_MODULE_5___default().homedir(), '.config', 'pollapo', 'cache');
 var CACHE_KEY_PREFIX = 'pollapo-install';
 var CACHE_VERSION = '1';
