@@ -8,7 +8,7 @@ import path from 'path';
 import stream from 'stream';
 import util from 'util';
 
-const POLLAPO_BINARY_URL = 'http://nexus.dev.riiid.cloud/repository/raw-pbkit/pollapo-ubuntu-v0.0.14'
+const POLLAPO_BINARY_URL = 'http://nexus.dev.riiid.cloud/repository/raw-pbkit/pollapo-ubuntu-v0.0.17'
 
 const CACHE_PATH = path.join(os.homedir(), '.config', 'pollapo', 'cache');
 const CACHE_KEY_PREFIX = 'pollapo-install';
