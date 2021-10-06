@@ -7,6 +7,7 @@ import os from 'os';
 import path from 'path';
 import stream from 'stream';
 import util from 'util';
+import * as commandExists from 'command-exists';
 
 const POLLAPO_BINARY_URL = 'http://nexus.dev.riiid.cloud/repository/raw-pbkit/pollapo-ubuntu-v0.0.17'
 
@@ -32,8 +33,11 @@ async function main() {
 }
 
 async function setupPollapo(): Promise<void> {
-  await exec.exec(`/bin/bash -c "curl -L ${POLLAPO_BINARY_URL} --output pollapo-ubuntu"`)
-  await exec.exec('chmod +x pollapo-ubuntu')
+  if (!commandExists.sync("polapo-ubuntu")) {
+    await exec.exec(`/bin/bash -c "curl -L ${POLLAPO_BINARY_URL} --output pollapo-ubuntu"`)
+    await exec.exec('chmod +x pollapo-ubuntu')
+    await exec.exec('export PATH=$PWD:$PATH')
+  }
 }
 
 async function restoreCache(): Promise<string | undefined> {
@@ -44,7 +48,7 @@ async function restoreCache(): Promise<string | undefined> {
 }
 
 async function pollapoInstall() {
-  await exec.exec("./pollapo-ubuntu", ["install", "--out-dir", outDirPath, "--token", token, "--config", configPath]);
+  await exec.exec("pollapo-ubuntu", ["install", "--out-dir", outDirPath, "--token", token, "--config", configPath]);
 }
 
 async function saveCache() {
