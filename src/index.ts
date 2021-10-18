@@ -33,11 +33,8 @@ async function main() {
 }
 
 async function setupPollapo(): Promise<void> {
-  if (!commandExists.sync("polapo-ubuntu")) {
-    await exec.exec(`/bin/bash -c "curl -L ${POLLAPO_BINARY_URL} --output pollapo-ubuntu"`)
-    await exec.exec('chmod +x pollapo-ubuntu')
-    await exec.exec('export PATH=$PWD:$PATH')
-  }
+  await exec.exec(`/bin/bash -c "curl -L ${POLLAPO_BINARY_URL} --output pollapo-ubuntu"`)
+  await exec.exec('chmod +x pollapo-ubuntu')
 }
 
 async function restoreCache(): Promise<string | undefined> {
@@ -48,7 +45,7 @@ async function restoreCache(): Promise<string | undefined> {
 }
 
 async function pollapoInstall() {
-  await exec.exec("pollapo-ubuntu", ["install", "--out-dir", outDirPath, "--token", token, "--config", configPath]);
+  await exec.exec("./pollapo-ubuntu", ["install", "--out-dir", outDirPath, "--token", token, "--config", configPath]);
 }
 
 async function saveCache() {
