@@ -25,11 +25,11 @@ const configPath = path.resolve(path.join(workingDirectory, config));
 
 async function main() {
   await setupPollapo();
-  const cacheKey = await restoreCache();
+  // const cacheKey = await restoreCache();
   await pollapoInstall();
-  if (!cacheKey) {
-    await saveCache();
-  }
+  // if (!cacheKey) {
+  //   await saveCache();
+  // }
 }
 
 async function setupPollapo(): Promise<void> {

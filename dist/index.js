@@ -58475,24 +58475,17 @@ var outDirPath = path__WEBPACK_IMPORTED_MODULE_6___default().resolve(path__WEBPA
 var configPath = path__WEBPACK_IMPORTED_MODULE_6___default().resolve(path__WEBPACK_IMPORTED_MODULE_6___default().join(workingDirectory, config));
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var cacheKey;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, setupPollapo()];
                 case 1:
                     _a.sent();
-                    return [4 /*yield*/, restoreCache()];
-                case 2:
-                    cacheKey = _a.sent();
+                    // const cacheKey = await restoreCache();
                     return [4 /*yield*/, pollapoInstall()];
-                case 3:
+                case 2:
+                    // const cacheKey = await restoreCache();
                     _a.sent();
-                    if (!!cacheKey) return [3 /*break*/, 5];
-                    return [4 /*yield*/, saveCache()];
-                case 4:
-                    _a.sent();
-                    _a.label = 5;
-                case 5: return [2 /*return*/];
+                    return [2 /*return*/];
             }
         });
     });
@@ -58529,7 +58522,7 @@ function restoreCache() {
                 case 1:
                     cacheKey = _a.sent();
                     restoreKeys = getRestoreCacheKeys();
-                    return [4 /*yield*/, _actions_cache__WEBPACK_IMPORTED_MODULE_0__.restoreCache(cachePaths, cacheKey, restoreKeys)];
+                    return [4 /*yield*/, cache.restoreCache(cachePaths, cacheKey, restoreKeys)];
                 case 2: return [2 /*return*/, _a.sent()];
             }
         });
@@ -58560,14 +58553,14 @@ function saveCache() {
                     _a.label = 2;
                 case 2:
                     _a.trys.push([2, 4, , 5]);
-                    return [4 /*yield*/, _actions_cache__WEBPACK_IMPORTED_MODULE_0__.saveCache(cachePaths, cacheKey)];
+                    return [4 /*yield*/, cache.saveCache(cachePaths, cacheKey)];
                 case 3:
                     _a.sent();
                     return [3 /*break*/, 5];
                 case 4:
                     e_1 = _a.sent();
-                    if (e_1.name === _actions_cache__WEBPACK_IMPORTED_MODULE_0__.ReserveCacheError.name) {
-                        _actions_core__WEBPACK_IMPORTED_MODULE_1__.info("Pollapo install cache entry `" + cacheKey + "` has been already created by another workflow.");
+                    if (e_1.name === cache.ReserveCacheError.name) {
+                        core.info("Pollapo install cache entry `" + cacheKey + "` has been already created by another workflow.");
                     }
                     else {
                         throw e_1;
@@ -58584,8 +58577,8 @@ function hashFile(path) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    result = crypto__WEBPACK_IMPORTED_MODULE_3___default().createHash('sha256');
-                    return [4 /*yield*/, util__WEBPACK_IMPORTED_MODULE_8___default().promisify((stream__WEBPACK_IMPORTED_MODULE_7___default().pipeline))(fs__WEBPACK_IMPORTED_MODULE_4___default().createReadStream(path), result)];
+                    result = crypto.createHash('sha256');
+                    return [4 /*yield*/, util.promisify(stream.pipeline)(fs.createReadStream(path), result)];
                 case 1:
                     _a.sent();
                     result.end();
