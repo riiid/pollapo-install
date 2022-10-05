@@ -34,7 +34,7 @@ async function main() {
 
 async function setupPollapo(): Promise<void> {
   await exec.exec(`/bin/bash -c "curl -L ${POLLAPO_TAR_URL} --output pollapo-ubuntu.tar"`);
-  await exec.exec(`tar xf pollapo-ubuntu.tar`)
+  await exec.exec(`tar xf pollapo-ubuntu.tar`);
 }
 
 async function restoreCache(): Promise<string | undefined> {

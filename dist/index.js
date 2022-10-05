@@ -58287,7 +58287,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-var POLLAPO_BINARY_URL = 'http://nexus.dev.riiid.cloud/repository/raw-pbkit/pollapo-ubuntu-v0.0.17';
+var POLLAPO_TAR_URL = 'https://github.com/pbkit/pbkit/releases/download/v0.0.54/pbkit-x86_64-unknown-linux-gnu.tar';
 var CACHE_PATH = path__WEBPACK_IMPORTED_MODULE_6___default().join(os__WEBPACK_IMPORTED_MODULE_5___default().homedir(), '.config', 'pollapo', 'cache');
 var CACHE_KEY_PREFIX = 'pollapo-install';
 var CACHE_VERSION = '1';
@@ -58318,10 +58318,10 @@ function setupPollapo() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec("/bin/bash -c \"curl -L " + POLLAPO_BINARY_URL + " --output pollapo-ubuntu\"")];
+                case 0: return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec("/bin/bash -c \"curl -L " + POLLAPO_TAR_URL + " --output pollapo-ubuntu.tar\"")];
                 case 1:
                     _a.sent();
-                    return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec('chmod +x pollapo-ubuntu')];
+                    return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec("tar xf pollapo-ubuntu.tar")];
                 case 2:
                     _a.sent();
                     return [2 /*return*/];
@@ -58350,7 +58350,7 @@ function pollapoInstall() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec("./pollapo-ubuntu", ["install", "--out-dir", outDirPath, "--token", token, "--config", configPath])];
+                case 0: return [4 /*yield*/, _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec("./pollapo", ["install", "--out-dir", outDirPath, "--token", token, "--config", configPath])];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
