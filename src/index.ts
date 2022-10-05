@@ -9,7 +9,7 @@ import stream from 'stream';
 import util from 'util';
 import * as commandExists from 'command-exists';
 
-const POLLAPO_BINARY_URL = 'http://nexus.dev.riiid.cloud/repository/raw-pbkit/pollapo-ubuntu-v0.0.17'
+const POLLAPO_TAR_URL = 'https://github.com/pbkit/pbkit/releases/download/v0.0.54/pbkit-x86_64-unknown-linux-gnu.tar';
 
 const CACHE_PATH = path.join(os.homedir(), '.config', 'pollapo', 'cache');
 const CACHE_KEY_PREFIX = 'pollapo-install';
@@ -33,8 +33,8 @@ async function main() {
 }
 
 async function setupPollapo(): Promise<void> {
-  await exec.exec(`/bin/bash -c "curl -L ${POLLAPO_BINARY_URL} --output pollapo-ubuntu"`)
-  await exec.exec('chmod +x pollapo-ubuntu')
+  await exec.exec(`/bin/bash -c "curl -L ${POLLAPO_TAR_URL} --output pollapo-ubuntu.tar"`);
+  await exec.exec(`tar xf pollapo-ubuntu.tar`)
 }
 
 async function restoreCache(): Promise<string | undefined> {
@@ -45,7 +45,7 @@ async function restoreCache(): Promise<string | undefined> {
 }
 
 async function pollapoInstall() {
-  await exec.exec("./pollapo-ubuntu", ["install", "--out-dir", outDirPath, "--token", token, "--config", configPath]);
+  await exec.exec("./pollapo", ["install", "--out-dir", outDirPath, "--token", token, "--config", configPath]);
 }
 
 async function saveCache() {
