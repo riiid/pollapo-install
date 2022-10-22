@@ -8,7 +8,7 @@ Github action workflow for pollapo install
 # .github/workflows/my-workflow.yml
 # ...
 - name: Pollapo Install
-  uses: riiid/pollapo-install@v1
+  uses: riiid/pollapo-install@v2
   with:
     token: ${{ secrets.GITHUB_OAUTH_TOKEN }}  # required
     out-dir: .pollapo  # optional
