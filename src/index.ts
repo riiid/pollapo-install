@@ -29,7 +29,7 @@ const pollapoTarUrl = runsOnOption === 'ubuntu'
   ? POLLAPO_LINUX_TAR_URL
   : runsOnOption === 'macOs'
   ? POLLAPO_MAC_TAR_URL
-  : (() => { throw new Error('runsOnOption has Error') })();
+  : (() => { throw new Error(`${runsOnOption} is unsupported in runsOnOption`) })();
 
 async function main() {
   await setupPollapo();
