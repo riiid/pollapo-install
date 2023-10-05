@@ -16,8 +16,8 @@ inputs:
     description: 'Working directory'
     required: false
     default: .
-  runs-on-option:
-    description: 'runs-on option'
+  env:
+    description: 'env'
     required: false
     default: 'ubuntu'
 runs:

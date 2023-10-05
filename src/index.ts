@@ -20,16 +20,16 @@ const outDir = core.getInput('out-dir');
 const token = core.getInput('token');
 const config = core.getInput('config');
 const workingDirectory = core.getInput('working-directory');
-const runsOnOption = core.getInput('runs-on-option');
+const env = core.getInput('env');
 
 const outDirPath = path.resolve(path.join(workingDirectory, outDir));
 const configPath = path.resolve(path.join(workingDirectory, config));
 
-const pollapoTarUrl = runsOnOption === 'ubuntu'
+const pollapoTarUrl = env === 'ubuntu'
   ? POLLAPO_LINUX_TAR_URL
-  : runsOnOption === 'macOs'
+  : env === 'macOs'
   ? POLLAPO_MAC_TAR_URL
-  : (() => { throw new Error(`${runsOnOption} is unsupported in runsOnOption`) })();
+  : (() => { throw new Error(`${env} is unsupported in env`) })();
 
 async function main() {
   await setupPollapo();
@@ -41,8 +41,8 @@ async function main() {
 }
 
 async function setupPollapo(): Promise<void> {
-  await exec.exec(`/bin/bash -c "curl -L ${pollapoTarUrl} --output pollapo-${runsOnOption}.tar"`);
-  await exec.exec(`tar xf pollapo-${runsOnOption}.tar`);
+  await exec.exec(`/bin/bash -c "curl -L ${pollapoTarUrl} --output pollapo-${env}.tar"`);
+  await exec.exec(`tar xf pollapo-${env}.tar`);
 }
 
 async function restoreCache(): Promise<string | undefined> {

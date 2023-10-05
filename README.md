@@ -14,7 +14,7 @@ Github action workflow for pollapo install
     out-dir: .pollapo  # optional
     config: pollapo.yml  # optional
     working-directory: .  # optional
-    runs-on-option: ubuntu  # optional (ubuntu[default] / macOs)
+    env: ubuntu  # optional (ubuntu[default] / macOs)
 # ...
 ```
 
