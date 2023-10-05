@@ -10,7 +10,7 @@ import util from 'util';
 import * as commandExists from 'command-exists';
 
 const POLLAPO_LINUX_TAR_URL = 'https://github.com/pbkit/pbkit/releases/download/v0.0.54/pbkit-x86_64-unknown-linux-gnu.tar';
-const POLLAPO_MAC_TAR_URL = 'https://github.com/pbkit/pbkit/releases/download/v0.0.54/pbkit-x86_64-apple-darwin.tar';
+const POLLAPO_MAC_TAR_URL = 'https://github.com/pbkit/pbkit/releases/download/v0.0.54/pbkit-aarch64-apple-darwin.tar';
 
 const CACHE_PATH = path.join(os.homedir(), '.config', 'pollapo', 'cache');
 const CACHE_KEY_PREFIX = 'pollapo-install';
