@@ -9,7 +9,8 @@ import stream from 'stream';
 import util from 'util';
 import * as commandExists from 'command-exists';
 
-const POLLAPO_TAR_URL = 'https://github.com/pbkit/pbkit/releases/download/v0.0.54/pbkit-x86_64-unknown-linux-gnu.tar';
+const POLLAPO_LINUX_TAR_URL = 'https://github.com/pbkit/pbkit/releases/download/v0.0.54/pbkit-x86_64-unknown-linux-gnu.tar';
+const POLLAPO_MAC_TAR_URL = 'https://github.com/pbkit/pbkit/releases/download/v0.0.54/pbkit-x86_64-apple-darwin.tar';
 
 const CACHE_PATH = path.join(os.homedir(), '.config', 'pollapo', 'cache');
 const CACHE_KEY_PREFIX = 'pollapo-install';
@@ -19,9 +20,16 @@ const outDir = core.getInput('out-dir');
 const token = core.getInput('token');
 const config = core.getInput('config');
 const workingDirectory = core.getInput('working-directory');
+const runsOnOption = core.getInput('runs-on-option');
 
 const outDirPath = path.resolve(path.join(workingDirectory, outDir));
 const configPath = path.resolve(path.join(workingDirectory, config));
+
+const pollapoTarUrl = runsOnOption === 'ubuntu'
+  ? POLLAPO_LINUX_TAR_URL
+  : runsOnOption === 'macOs'
+  ? POLLAPO_MAC_TAR_URL
+  : (() => { throw new Error('runsOnOption has Error') })();
 
 async function main() {
   await setupPollapo();
@@ -33,8 +41,8 @@ async function main() {
 }
 
 async function setupPollapo(): Promise<void> {
-  await exec.exec(`/bin/bash -c "curl -L ${POLLAPO_TAR_URL} --output pollapo-ubuntu.tar"`);
-  await exec.exec(`tar xf pollapo-ubuntu.tar`);
+  await exec.exec(`/bin/bash -c "curl -L ${pollapoTarUrl} --output pollapo-${runsOnOption}.tar"`);
+  await exec.exec(`tar xf pollapo-${runsOnOption}.tar`);
 }
 
 async function restoreCache(): Promise<string | undefined> {
